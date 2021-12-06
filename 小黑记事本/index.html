@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/base.css">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            background-color: #F0F0F0;
+        }
+        #todoapp{
+            width: 650px;
+            height: 300px;
+            margin: auto;
+        }
+        h1{
+            margin: 50px 0;
+            text-align: center;
+            color: rgb(171, 11, 235);
+            font-weight: 500;
+            font-size: 50px;
+        }
+        #todoapp>header>input{
+            
+        }
+    </style>
+</head>
+
+<body>
+    <section id="todoapp">
+        <header>
+            <h1>小黑记事本</h1>
+            <input v-model="inputValue" @keyup.enter="add" placeholder="请输入" />
+        </header>
+
+        <section>
+            <ul>
+                <li v-for="(item,index) in list">
+                    <div>
+                        <span>{{index+1}}</span>
+                        <label>{{item}}</label>
+                        <button @click="remove(index)">×</button>
+                    </div>
+                </li>
+            </ul>
+        </section>
+        <footer v-show="list.length==0?fales:true">
+            <span>
+                <strong>{{list.length}}</strong> items left
+            </span>
+            <button @click="clear">clear</button>
+
+        </footer>
+    </section>
+    <script src="js/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: "#todoapp",
+            data: {
+                list: ["大西厢", "锁麟囊", "同仁堂"],
+                inputValue: ""
+            },
+            methods: {
+                add: function () {
+                    this.list.push(this.inputValue);
+                    this.inputValue = ""
+                },
+                remove: function (index) {
+                    this.list.splice(index, 1);
+                },
+                clear: function () {
+                    this.list = [];
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
